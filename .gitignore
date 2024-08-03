@@ -39,4 +39,4 @@ build/
 .DS_Store
 
 ### Smart Tomcat Plugin ###
-.smarttomcat
+.smarttomcat/
