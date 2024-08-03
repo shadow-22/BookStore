@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch and display books
     function fetchBooks() {
-        fetch('/api/books')
+        fetch('http://localhost:9090/jaxrs-api/api/books')
             .then(response => response.json())
             .then(books => {
                 bookList.innerHTML = '';
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isbn: formData.get('isbn')
         };
 
-        fetch('/api/books', {
+        fetch('http://localhost:9090/jaxrs-api/api/books', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
