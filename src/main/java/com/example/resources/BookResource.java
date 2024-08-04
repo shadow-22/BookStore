@@ -40,6 +40,12 @@ public class BookResource {
         return bookService.updateBook(id, book);
     }
 
+    @GET
+    @Path("/search")
+    public List<Book> searchBooks(@QueryParam("name") String name) {
+        return bookService.searchBooks(name);
+    }
+
     @DELETE
     @Path("/{id}")
     public Response deleteBook(@PathParam("id") int id) {

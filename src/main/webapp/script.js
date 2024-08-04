@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const bookForm = document.getElementById('book-form');
     const bookList = document.getElementById('books');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const searchResults = document.getElementById('searchResults');
 
     // Fetch and display books
     function fetchBooks() {
@@ -15,6 +18,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             })
             .catch(error => console.error('Error fetching books:', error));
+    }
+
+    // Search a book
+    function searchBooks(name) {
+        fetch(`http://localhost:9090/jaxrs-api/api/books/search?name=${encodeURIComponent(name)}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Search results:", data);
+                searchResults.innerHTML = '';
+                data.forEach(book => {
+                    const li = document.createElement('li');
+                    li.textContent = `${book.title} by ${book.author}`;
+                    searchResults.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error("Error searching books:", error);
+            });
+    }
+
+    function performSearch() {
+        const name = document.getElementById('searchInput').value;
+        searchBooks(name);
     }
 
     // Add a new book
@@ -44,4 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     fetchBooks();
+
+    // Event listener for the search button
+    searchButton.addEventListener('click', performSearch);
 });

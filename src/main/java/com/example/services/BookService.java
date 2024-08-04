@@ -54,6 +54,15 @@ public class BookService {
         }
     }
 
+    public List<Book> searchBooks(String name) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Book> books = session.createQuery("FROM Book WHERE title LIKE :name", Book.class)
+                .setParameter("name", "%" + name + "%")
+                .list();
+        session.close();
+        return books;
+    }
+
     public Response deleteBook(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();

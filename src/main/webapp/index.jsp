@@ -25,6 +25,12 @@
             <input type="text" id="isbn" name="isbn">
             <button type="submit">Add Book</button>
         </form>
+
+        <input type="text" id="searchInput" placeholder="Search for books...">
+        <button id="searchButton">Search</button>
+        <!-- Search Results -->
+        <h2>Search Results</h2>
+        <ul id="searchResults"></ul>
     </div>
     <script src="script.js"></script>
 </body>
