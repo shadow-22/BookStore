@@ -10,10 +10,8 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-@Path("/books")
 public class BookService {
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
+
     public List<Book> getBooks() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<Book> books = session.createQuery("FROM Book", Book.class).list();
@@ -21,19 +19,13 @@ public class BookService {
         return books;
     }
 
-    @GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Book getBook(@PathParam("id") int id) {
+    public Book getBook(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Book book = session.get(Book.class, id);
         session.close();
         return book;
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response addBook(Book book) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -43,11 +35,7 @@ public class BookService {
         return Response.ok(book).build();
     }
 
-    @PUT
-    @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateBook(@PathParam("id") int id, Book book) {
+    public Response updateBook(int id, Book book) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Book existingBook = session.get(Book.class, id);
@@ -66,10 +54,7 @@ public class BookService {
         }
     }
 
-    @DELETE
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteBook(@PathParam("id") int id) {
+    public Response deleteBook(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Book book = session.get(Book.class, id);
